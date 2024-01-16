@@ -1,3 +1,6 @@
+
+// Import and Setup
+
 const path = require("path");
 const http = require("http");
 const express = require("express");
@@ -14,16 +17,25 @@ const {
   getRoomUsers,
 } = require("./utils/users");
 
+
+// Expres App and Socket.io Server Setup'
+// Create an Express app (app) and an HTTP server (server) using http.createServer.
+// Initialize Socket.io on the server (io).
+// Set up a static folder to serve static files (e.g., HTML, CSS) using express.static
+
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
 
-// Set static folder
 app.use(express.static(path.join(__dirname, "public")));
 
 const botName = "Chat Chat Bot";
 
 
+// //Redis Connection and Adapter Setup
+// Asynchronously connect to Redis using two clients (pubClient and subClient).
+// Establish a connection to the Redis server using the connect method.
+// Create a Socket.io adapter using the Redis adapter to enable broadcasting events across multiple Node.js processes.
 (async () => {
   try {
     pubClient = createClient({ url: "redis://127.0.0.1:6379" });
@@ -35,8 +47,10 @@ const botName = "Chat Chat Bot";
   }
 })();
 
-
-// Run when client connects
+// Socket.io Event Handling
+// Listen for the "connection" event, which triggers when a client connects to the Socket.io server.
+// Log information about the adapter to the console for debugging purposes.
+// Implement event handlers for "joinRoom," "chatMessage," and "disconnect" events.
 io.on("connection", (socket) => {
   console.log(io.of("/").adapter);
   socket.on("joinRoom", ({ username, room }) => {
@@ -88,6 +102,7 @@ io.on("connection", (socket) => {
   });
 });
 
+// Server Start 
 const PORT = process.env.PORT || 3000;
 
 server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
