@@ -37,3 +37,11 @@ The server will be running on `http://localhost:3000`.
 This project was developed as a learning exercise for real-time web applications. Special thanks to the Node.js, Express, and Socket.io communities for providing excellent tools and documentation.
 
 Feel free to contribute, report issues, or suggest improvements. Happy chatting!
+
+
+## Screenshots
+![Lobby](./chat_chat_1.png)
+
+![Lobby](./chat_chat_2.png)
+
+![Lobby](./chat_chat_3.png)
